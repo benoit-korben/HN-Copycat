@@ -1,0 +1,3 @@
+<% comment.reactions.group(:reaction_type).count.each do |emoji, count| %>
+  <span><%= count unless count == 1 %><%= emoji %></span>
+<% end %>

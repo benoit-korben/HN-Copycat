@@ -27,19 +27,32 @@
       </div>
     <% end %>
   </div>
-  <div>
+<div>
     <% @comments.each do |comment| %>
-      <div class="comment-container">
+      <div class="comment-container"
+           data-controller="emoji-picker"
+           data-emoji-picker-user-value="<%= current_user.id %>"
+           data-emoji-picker-comment-value="<%= comment.id %>">
         <i class="fa-solid fa-caret-right" style="color:grey"></i>
         <span class="comment-info">
-          <%= comment.user.username %> <%= time_ago_in_words(comment.created_at) %>
+          <%= comment.user.username %> <%= time_ago_in_words(comment.created_at) %> ago
         </span>
         <div class="comment">
           <%= comment.content %>
+        </div>
+        <div class="reactions">
+          <span class="reaction-list">
+            <% comment.reactions.group(:reaction_type).count.each do |emoji, count| %>
+              <span><%= count unless count == 1 %><%= emoji %></span>
+            <% end %>
+          </span>
+          <button type="button"
+                  class="btn"
+                  data-action="click->emoji-picker#displayEmojis">
+                  <i class="fa-solid fa-face-smile">+</i>
+          </button>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-</div>
-  </div>
