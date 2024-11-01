@@ -1,5 +1,5 @@
 <div class="p-2">
-  <H6>Rank: #<%= @rank %></H6>
+  <h6>Rank: #<%= @rank %></h6>
   <div class="d-flex">
     <div class="d-flex gap-2">
       <div id="<%= dom_id(@post, :icon) %>" class="icon">
@@ -15,7 +15,31 @@
         <span id="<%= dom_id(@post, :score) %>" class="post-infos">
           <%= @post.score %> points by <%= @post.author %>
         </span>
+
+
+  <div>
+    <%= simple_form_for([@post, @comment]) do |form| %>
+      <div class="form-group">
+        <%= form.input :content, label: "Add a comment:", input_html: { class: 'form-control' } %>
       </div>
-    </div>
+      <div class="form-group">
+        <%= form.button :submit, "Post Comment", class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <% @comments.each do |comment| %>
+      <div class="comment-container">
+        <i class="fa-solid fa-caret-right" style="color:grey"></i>
+        <span class="comment-info">
+          <%= comment.user.username %> <%= time_ago_in_words(comment.created_at) %>
+        </span>
+        <div class="comment">
+          <%= comment.content %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
+</div>
+  </div>

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     member do
       post :upvote
     end
+    resources :comments, only: [:create]
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -42,3 +42,19 @@
 .upvote-button {
   border: none;
 }
+
+.comment-container {
+  margin-top: 2rem;
+  margin-left: 40 px;
+}
+
+.comment-info {
+  flex-direction: column;
+  font-size: 1rem;
+}
+
+.comment {
+  color: black;
+  font-size: 1rem;
+  margin-left: 1rem;
+}

@@ -23,6 +23,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments
+    @comment = Comment.new
     @rank = params[:index].to_i + 1
   end
 end
