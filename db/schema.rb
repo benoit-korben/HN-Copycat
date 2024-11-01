@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_31_170447) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_01_081220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_31_170447) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "upvotes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_upvotes_on_post_id"
+    t.index ["user_id"], name: "index_upvotes_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,4 +58,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_31_170447) do
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "upvotes", "posts"
+  add_foreign_key "upvotes", "users"
 end

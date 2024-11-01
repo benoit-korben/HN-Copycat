@@ -4,11 +4,12 @@ require 'faker'
 
 puts "deleting all records"
 User.delete_all
+Post.delete_all
 
 puts "Creating Users"
-User.new(email: 'user1@test.fr', password: 'password', username: 'user1').save
-User.new(email: 'user2@test.fr', password: 'password', username: 'user2').save
-User.new(email: 'user3@test.fr', password: 'password', username: 'user3').save
+50.times do
+  User.new(email: Faker::Internet.email, password: 'password', username: Faker::Internet.username).save
+end
 
 puts "Catching the Posts ids"
 url = "https://hacker-news.firebaseio.com/v0/topstories.json"
@@ -20,7 +21,7 @@ url = "https://hacker-news.firebaseio.com/v0/item/"
 ids.first(50).each do |id|
   post_serialized = URI.parse(url + id.to_s + ".json").read
   post = JSON.parse(post_serialized)
-  Post.new(score: post["score"], post_type: post["type"], author: post["by"], title: post["title"], url: post["url"]).save
+  Post.new(post_type: post["type"], author: post["by"], title: post["title"], url: post["url"]).save
 end
 
 puts "creating Comments"
@@ -28,4 +29,16 @@ post_ids = Post.pluck(:id)
 user_ids = User.pluck(:id)
 150.times do
   Comment.new(post_id: post_ids.sample, user_id: user_ids.sample, content: Faker::Quote.famous_last_words).save
+end
+
+puts "creating upvotes"
+post_ids = Post.pluck(:id)
+user_ids = User.pluck(:id)
+200.times do
+  Upvote.new(post_id: post_ids.sample, user_id: user_ids.sample).save
+end
+
+puts "calculating scores"
+Post.all.each do |post|
+  post.update(score: post.upvotes.count)
 end

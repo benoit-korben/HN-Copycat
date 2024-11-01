@@ -1,0 +1,13 @@
+<%= turbo_stream.replace dom_id(@post, :icon) do %>
+  <div id="<%= dom_id(@post, :icon) %>" class="icon">
+    <%= button_to upvote_post_path(@post), method: :post, remote: true, class: "upvote-button" do %>
+      <i class="fa-solid fa-caret-up" style="color: <%= current_user&.upvotes&.exists?(post: @post) ? 'orange' : 'grey' %>; cursor: pointer;"></i>
+    <% end %>
+  </div>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@post, :score) do %>
+  <span id="<%= dom_id(@post, :score) %>" class="post-infos">
+    <%= @post.score %> points by <%= @post.author %>
+  </span>
+<% end %>

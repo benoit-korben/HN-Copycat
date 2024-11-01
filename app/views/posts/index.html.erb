@@ -2,15 +2,22 @@
   <% @posts.each_with_index do |post, i| %>
     <div class="d-flex">
       <div class="d-flex gap-2">
-        <div class="grey-text text-10pt">
+        <div class="index">
           <%= i + 1 %>.
         </div>
+        <div id="<%= dom_id(post, :icon) %>" class="icon">
+          <%= button_to upvote_post_path(post), method: :post, remote: true, class: "upvote-button" do %>
+            <i class="fa-solid fa-caret-up" style="color: <%= current_user&.upvotes&.exists?(post: post) ? 'orange' : 'grey' %>; cursor: pointer;"></i>
+          <% end %>
+        </div>
         <div class="d-flex flex-column">
-          <span class="text-10pt">
-            <%= link_to post.title, post_path(post), class: "title" %>
-            <%= link_to post.url, post_path(post), class: "link " %>
+          <span>
+            <%= link_to post.title, post_path(post, index:i), class: "title" %>
+            <%= link_to post.url, post.url, class: "link" %>
           </span>
-          <span class="post-infos"><%= post.score %> points by <%= post.author %></span>
+          <span id="<%= dom_id(post, :score) %>" class="post-infos">
+            <%= post.score %> points by <%= post.author %>
+          </span>
         </div>
       </div>
     </div>

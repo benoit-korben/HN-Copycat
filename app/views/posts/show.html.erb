@@ -1,0 +1,21 @@
+<div class="p-2">
+  <H6>Rank: #<%= @rank %></H6>
+  <div class="d-flex">
+    <div class="d-flex gap-2">
+      <div id="<%= dom_id(@post, :icon) %>" class="icon">
+        <%= button_to upvote_post_path(@post), method: :post, remote: true, class: "upvote-button" do %>
+          <i class="fa-solid fa-caret-up" style="color: <%= current_user&.upvotes&.exists?(post: @post) ? 'orange' : 'grey' %>; cursor: pointer;"></i>
+        <% end %>
+      </div>
+      <div class="d-flex flex-column">
+        <span>
+          <%= link_to @post.title, @post.url, class: "title" %>
+          <%= link_to @post.url, @post.url, class: "link" %>
+        </span>
+        <span id="<%= dom_id(@post, :score) %>" class="post-infos">
+          <%= @post.score %> points by <%= @post.author %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
