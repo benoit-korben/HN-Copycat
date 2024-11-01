@@ -10,6 +10,7 @@ puts "Creating Users"
 50.times do
   User.new(email: Faker::Internet.email, password: 'password', username: Faker::Internet.username).save
 end
+User.new(email: 'test@test.fr', password: 'password', username: 'test').save
 
 puts "Catching the Posts ids"
 url = "https://hacker-news.firebaseio.com/v0/topstories.json"

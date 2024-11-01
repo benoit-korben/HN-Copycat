@@ -45,12 +45,12 @@
             <% comment.reactions.group(:reaction_type).count.each do |emoji, count| %>
               <span><%= count unless count == 1 %><%= emoji %></span>
             <% end %>
-          </span>
           <button type="button"
                   class="btn"
                   data-action="click->emoji-picker#displayEmojis">
                   <i class="fa-solid fa-face-smile">+</i>
           </button>
+          </span>
         </div>
       </div>
     <% end %>

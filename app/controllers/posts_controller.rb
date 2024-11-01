@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @comments = @post.comments
+    @comments = @post.comments.order(created_at: :desc)
     @comment = Comment.new
     @rank = params[:index].to_i + 1
   end

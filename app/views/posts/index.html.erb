@@ -7,7 +7,7 @@
         </div>
         <div id="<%= dom_id(post, :icon) %>" class="icon">
           <%= button_to upvote_post_path(post), method: :post, remote: true, class: "upvote-button" do %>
-            <i class="fa-solid fa-caret-up" style="color: <%= current_user&.upvotes&.exists?(post: post) ? 'orange' : 'grey' %>; cursor: pointer;"></i>
+            <i class="fa-solid fa-caret-up" style="color: <%= current_user&.upvotes&.exists?(post: post) ? 'orange' : 'grey' %>"></i>
           <% end %>
         </div>
         <div class="d-flex flex-column">

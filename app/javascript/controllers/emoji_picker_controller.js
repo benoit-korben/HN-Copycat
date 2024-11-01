@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { createPicker } from 'picmo';
 
-// Connects to data-controller="emoji-picker"
 export default class extends Controller {
 
   static values = {
